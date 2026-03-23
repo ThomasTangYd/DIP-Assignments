@@ -49,12 +49,7 @@ def point_guided_deformation(image, source_pts, target_pts, alpha=1.0, eps=1e-8)
 
     # warped_image = np.array(image)
     # ### FILL: Implement MLS or RBF based image warping
-    if len(image.shape) == 2:
-        height, width = image.shape
-        is_gray = True
-    else:
-        height, width, ncolor = image.shape
-        is_gray = False
+    height, width = image.shape[:2]
         
     image_new = np.zeros(image.shape, dtype = np.float32)
     weight_sum = np.zeros((height, width), dtype = np.float32)
@@ -77,13 +72,6 @@ def point_guided_deformation(image, source_pts, target_pts, alpha=1.0, eps=1e-8)
             wx0 = 1.0 - wx1
             wy0 = 1.0 - wy1
 
-            # if is_gray:
-            #     color = image[y, x]
-            #     image_new[y0, x0] += color * wx0 * wy0
-            #     image_new[y0, x1] += color * wx1 * wy0
-            #     image_new[y1, x0] += color * wx0 * wy1
-            #     image_new[y1, x1] += color * wx1 * wy1
-            # else:
             color = image[y, x, :]
             image_new[y0, x0, :] += color * wx0 * wy0
             image_new[y0, x1, :] += color * wx1 * wy0
@@ -94,10 +82,7 @@ def point_guided_deformation(image, source_pts, target_pts, alpha=1.0, eps=1e-8)
             weight_sum[y0, x1] += wx1 * wy0
             weight_sum[y1, x0] += wx0 * wy1
             weight_sum[y1, x1] += wx1 * wy1
-    
-    # if is_gray:
-    #     image_new = np.divide(image_new, weight_sum + eps)
-    # else:
+            
     image_new = np.divide(image_new, weight_sum[:, :, np.newaxis] + eps)
 
     return np.clip(image_new, 0, 255).astype(np.uint8)
