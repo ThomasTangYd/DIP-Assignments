@@ -27,11 +27,13 @@ python run_point_transform.py
 
 ## 结果展示
 
-完整的结果展示请查看```Assignment1\pics```文件夹。
+结果展示使用了两张图片，分别运行两部分的代码，得到的结果截图。完整的结果展示请查看```pics```文件夹。
 
 ### 全局变换展示
 
-<img src="pics/result1.1.png" alt="图片显示错误" width="800">
+<img src="pics/result1.1.1.png" alt="图片显示错误" width="800">
+
+<img src="pics/result1.2.1.png" alt="图片显示错误" width="800">
 
 ### 局部变换展示
 
